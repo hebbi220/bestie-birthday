@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>For My Bestie 💗</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;text-align:center;font-family:Arial,sans-serif;
+color:#713b60;background:linear-gradient(135deg,#ffe5f0,#e9dcff,#fff3d9)}
+button{border:0;border-radius:25px;padding:13px 20px;
+background:#e65b9b;color:white;font-size:16px;margin:8px}
+section{padding:35px 15px}
+h1{font-size:38px}
+.card{background:#ffffffc9;border-radius:22px;padding:22px;
+margin:18px auto;max-width:500px}
+#intro{position:fixed;inset:0;z-index:10;
+display:flex;flex-direction:column;justify-content:center;
+align-items:center;padding:15px;background:linear-gradient(135deg,#ffe2f0,#e5d8ff);
+transition:opacity 1s}
+.dancers{display:flex;gap:25px;font-size:85px}
+.dancers span{animation:dance .5s infinite alternate}
+.dancers span:nth-child(2){animation-delay:.25s}
+@keyframes dance{to{transform:translateY(-18px) rotate(12deg)}}
+#introCake{font-size:80px}
+@keyframes pop{50%{transform:scale(1.6)}100%{transform:scale(0);opacity:0}}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:20;overflow:hidden}
+.piece{position:absolute;top:-30px;animation:fall 3s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(700deg);opacity:0}}
+.heart{position:fixed;bottom:-30px;animation:float 5s linear forwards;pointer-events:none}
+@keyframes float{to{transform:translateY(-110vh);opacity:0}}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid img{width:100%;height:145px;object-fit:cover;border-radius:12px}
+#letter{display:none;white-space:pre-line;line-height:1.8}
+</style>
+</head>
+<body>
+<div id="confetti"></div>
+
+<div id="intro">
+<p>✨ A SURPRISE MADE FOR YOU ✨</p>
+<div class="dancers"><span>🐼</span><span>🦖</span></div>
+<h2>Panda & Dino's Birthday Party!</h2>
+<p>They're dancing just for you! 💗</p>
+<div id="introCake">🎂</div>
+<button onclick="startParty()">Open Your Surprise 🎁</button>
+</div>
+
+<div id="main" style="display:none">
+<section>
+<div style="font-size:65px">🎁💖</div>
+<p>A LITTLE WEBSITE, MADE WITH LOVE</p>
+<h1>Happy Birthday,<br><span id="name">Bestie</span>! 🎂</h1>
+<p>To my favourite human in the whole world! 🫶</p>
+<button onclick="hearts()">Send Some Love 💕</button>
+</section>
+
+<section>
+<div class="card">
+<h2>🎂 Make a Birthday Wish!</h2>
+<div style="font-size:75px" id="cake">🎂</div>
+<p>Close your eyes and make a wish!</p>
+<button onclick="celebrate()">Celebrate 🎉</button>
+<p id="wish"></p>
+</div>
+</section>
+
+<section>
+<div class="card">
+<h2>📸 Our Little Memories</h2>
+<p>Select photos from your phone gallery!</p>
+<input type="file" accept="image/*" multiple onchange="addPhotos(event)">
+<div class="grid" id="gallery"></div>
+</div>
+</section>
+
+<section>
+<div class="card">
+<h2>💌 A Secret Letter</h2>
+<button onclick="showLetter()">Open My Letter 💗</button>
+<p id="letter">Dear Bestie! 🥹💖
+
+Happy Birthday to one of the most special people in my life!
+
+Thank you for all the laughs, silly moments and beautiful memories. I hope your new year brings happiness, success, love and endless smiles.
+
+No matter where life takes us, I hope we always stay best friends and make more unforgettable memories together.
+
+You deserve all the happiness in this world!
+
+Happy Birthday once again! 🎂🫶
+
+With lots of love,
+Your Bestie 💗</p>
+</div>
+</section>
+
+<section>
+<div class="card">
+<h2>🎵 Birthday Music</h2>
+<p>Choose a birthday song audio file from your phone.</p>
+<input type="file" accept="audio/*" onchange="music(event)">
+<audio id="player" controls loop style="width:100%;margin-top:15px"></audio>
+<p style="font-size:12px">Music plays after you press play.</p>
+</div>
+</section>
+<footer>Made with love, just for you 💗🐼🦖</footer>
+</div>
+
+<script>
+function startParty(){
+document.getElementById('introCake').style.animation='pop .7s forwards';
+burst();
+setTimeout(()=>{
+document.getElementById('intro').style.display='none';
+document.getElementById('main').style.display='block';
+hearts();
+},1600);
+}
+function burst(){
+const symbols=['🎉','💖','✨','🎊','💕','🌸'];
+for(let i=0;i<65;i++){
+let e=document.createElement('span');
+e.className='piece';
+e.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+e.style.left=Math.random()*100+'vw';
+e.style.animationDelay=Math.random()*1.5+'s';
+e.style.fontSize=15+Math.random()*22+'px';
+document.getElementById('confetti').appendChild(e);
+setTimeout(()=>e.remove(),5000);
+}
+}
+function hearts(){
+for(let i=0;i<20;i++){
+let e=document.createElement('span');
+e.className='heart';
+e.textContent=['💗','💕','💖','✨'][Math.floor(Math.random()*4)];
+e.style.left=Math.random()*100+'vw';
+e.style.fontSize='25px';
+document.body.appendChild(e);
+setTimeout(()=>e.remove(),5000);
+}
+}
+function celebrate(){
+document.getElementById('cake').textContent='🎂💥🎉';
+document.getElementById('wish').textContent='Happy Birthday! May all your wishes come true! 💖';
+burst();hearts();
+}
+function showLetter(){
+let e=document.getElementById('letter');
+e.style.display=e.style.display==='block'?'none':'block';
+}
+function addPhotos(event){
+const gallery=document.getElementById('gallery');
+[...event.target.files].forEach(file=>{
+const img=document.createElement('img');
+img.src=URL.createObjectURL(file);
+gallery.appendChild(img);
+});
+}
+function music(event){
+const player=document.getElementById('player');
+player.src=URL.createObjectURL(event.target.files[0]);
+player.play().catch(()=>{});
+}
+</script>
+</body>
+</html>
